@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs/Observable';
-import { TodoItem, GetTodoItems, TodoState } from './states/todo/todo-state';
+import { TodoItem, GetTodoItems, TodoState, AddTodoItem } from './states/todo/todo-state';
 
 @Component({
   selector: 'app-root',
@@ -15,5 +15,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GetTodoItems());
+  }
+
+  addTodo(input: HTMLInputElement) {
+    this.store.dispatch(new AddTodoItem(input.value)).subscribe(() => {
+      input.value = '';
+    });
   }
 }
